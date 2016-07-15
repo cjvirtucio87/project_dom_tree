@@ -71,15 +71,6 @@ class DOMReader
   def build_tree
     html_tags = @dom_string.scan(/<\/*\w+>/)
     text_nodes = @dom_string.scan(/>\s*.+\s*</)
-    # puts "///TAGS///"
-    # html_tags.each do |tag|
-    #   p tag
-    # end
-    # puts
-    # puts "///TEXT///"
-    # text_nodes.each do |txt|
-    #   p txt
-    # end
     previous_node = @root
     html_tags.each do |tag|
       new_node = Node.new(tag, nil, nil, [], previous_node)
@@ -90,8 +81,6 @@ class DOMReader
   end
 
   def render_node
-    
-
   end
 
 
