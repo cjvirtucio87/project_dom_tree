@@ -2,15 +2,21 @@ module DOMParser
 
   module RegEx
 
-    TAGS = /<.*>/
+    OPEN_TAG = /<[^\/]*?>/
 
-    TYPES = /<(\w+).*>/
+    CLOSE_TAG = /<\/.*?>/
 
-    CONTENT = /<.*>(.*?)<\/.*>/
+    TEXT = /(?<=>)[^><]*(?=<)/
 
-    # ATTRIBUTES = /<\w+(.*=.*?)>/
+    # TAGS = /<.*>/
 
-    ATTRIBUTES = /<(\w+)\s*(\w+)="([^""]+)"/
+    # TYPES = /<(\w+).*>/
+
+    # CONTENT = /<.*>(.*?)<\/.*>/
+
+    # # ATTRIBUTES = /<\w+(.*=.*?)>/
+
+    # ATTRIBUTES = /<(\w+)\s*(\w+)="([^""]+)"/
 
   end
 

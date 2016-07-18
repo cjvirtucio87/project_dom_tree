@@ -1,6 +1,7 @@
 require './nodes'
 require './regex'
 require './parser'
+require './domtree'
 
 module DOMParser
 
@@ -10,7 +11,7 @@ module DOMParser
 
       def run(filename)
         nodes = Parser.parse(filename)
-        Parser.render(nodes)
+        # Parser.render(nodes)
       end
 
     end
@@ -20,4 +21,4 @@ module DOMParser
 end
 
 
-DOMParser::Main.run('test.html')
+p DOMParser::Main.run('test.html')

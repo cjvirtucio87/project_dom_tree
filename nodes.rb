@@ -2,11 +2,11 @@ module DOMParser
   
   module Nodes
 
-    TagNode = Struct.new(:type,:content,:attributes)
+    TagNode = Struct.new(:type,:parent,:attributes,:children,:depth)
     
-    AttributesNode = Struct.new(:parent,:type,:content)
+    AttributesNode = Struct.new(:type,:parent,:content,:depth)
     
-    ContentNode = Struct.new(:data)
+    ContentNode = Struct.new(:data,:parent,:depth)
 
   end
 
