@@ -38,23 +38,25 @@ module DOMParser
           end.flatten.compact
         end
 
-        def make_type_node(tag)
-          if type_match = DOMParser::RegEx::TYPES.match(tag)
-            type_match.captures[0]
-          end
-        end
-
-        def make_content_node(tag)
-          if content_match = DOMParser::RegEx::CONTENT.match(tag)
-            DOMParser::Nodes::ContentNode.new(content_match.captures[0])
-          end
-        end
-
-        #ATTRIBUTES captures all necessary parts in order.
-        #Just splat it for the Struct.
-        def make_attribute_node(tag)
-          if attributes_match = DOMParser::RegEx::ATTRIBUTES.match(tag)
-            DOMParser::Nodes::AttributesNode.new(*(attributes_match.captures))
+        #Meta-programming to reduce repetition.
+        [:type,:content,:attribute].each do |name|
+          define_method("make_#{name}_node") do |tag|
+            case name
+            when :type
+              if type_match = DOMParser::RegEx::TYPES.match(tag)
+                type_match.captures[0]
+              end
+            when :content
+              if content_match = DOMParser::RegEx::CONTENT.match(tag)
+                DOMParser::Nodes::ContentNode.new(content_match.captures[0])
+              end
+            when :attribute
+              #ATTRIBUTES captures all necessary parts in order.
+              #Just splat it for the Struct.
+              if attributes_match = DOMParser::RegEx::ATTRIBUTES.match(tag)
+                DOMParser::Nodes::AttributesNode.new(*(attributes_match.captures))
+              end
+            end
           end
         end
 
