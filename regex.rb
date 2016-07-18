@@ -8,6 +8,8 @@ module DOMParser
 
     TEXT = /(?<=>)[^><]*(?=<)/
 
+    TEXT_NODE = /[^><]*/
+
     # TAGS = /<.*>/
 
     # TYPES = /<(\w+).*>/

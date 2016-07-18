@@ -17,6 +17,16 @@ module DOMParser
       end
 
       def render(tree)
+        curr = tree.root
+        stack = [curr]
+        until stack.empty?
+          curr = stack.pop
+          curr.children.each do |child|
+            display(child)
+            stack.push(child)
+          end
+        end
+        nil
       end
 
       private
@@ -30,11 +40,17 @@ module DOMParser
         end
 
         def text?(node)
-          !!DOMParser::RegEx::TEXT.match(node)
+          !!DOMParser::RegEx::TEXT_NODE.match(node)
         end
 
         def read(string)
-          string.scan(/.*/).select { |node| !node.empty? }
+          nodes = string.scan(/.*/).select { |node| !node.empty? }
+        end
+
+        def display(node)
+          puts "#{node.type.strip}"
+          puts "... Parent: #{node.parent.type.strip}"
+          puts "... Depth: #{node.depth}"
         end
 
 

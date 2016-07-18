@@ -1,9 +1,12 @@
 module DOMParser
 
   class DOMTree
+    attr_reader :root
     
     def initialize(nodes)
-      @root = DOMParser::Nodes::TagNode.new(nodes[1],nil,[],[],0)
+      @document = DOMParser::Nodes::TagNode.new("Document",nil,[],[],0)
+      @root = DOMParser::Nodes::TagNode.new(nodes[1],@document,[],[],0)
+      @document.children.push(@root)
       build_tree(nodes[2..-1])
     end
 
@@ -13,17 +16,22 @@ module DOMParser
       nodes.map do |node|
         case DOMParser::Parser.inspect(node)
         when :open
-          depth += 1
-          new_node = make_tag_node(node,depth,curr)
-          curr = new_node
+          if DOMParser::Parser.inspect(curr.type) == :open
+            depth += 1
+            curr = make_tag_node(node,depth,curr)
+          else
+            curr = make_tag_node(node,depth,curr.parent)
+          end
+        when :close
+          if DOMParser::Parser.inspect(curr.type) == :open
+            curr = make_tag_node(node,depth,curr.parent)
+          else
+            depth -= 1
+            curr = make_tag_node(node,depth,curr.parent.parent)
+          end
         when :text
           depth += 1
-          new_node = make_text_node(node,depth,curr)
-          curr = new_node
-        when :close
-          new_node = make_tag_node(node,depth,curr)
-          curr = new_node
-          depth -= 1
+          curr = make_tag_node(node,depth,curr)
         end
       end
     end

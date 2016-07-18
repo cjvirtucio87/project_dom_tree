@@ -2,6 +2,7 @@ require './nodes'
 require './regex'
 require './parser'
 require './domtree'
+require 'pry'
 
 module DOMParser
 
@@ -10,8 +11,8 @@ module DOMParser
     class << self
 
       def run(filename)
-        nodes = Parser.parse(filename)
-        # Parser.render(nodes)
+        tree = DOMParser::Parser.parse(filename)
+        DOMParser::Parser.render(tree)
       end
 
     end
@@ -21,4 +22,4 @@ module DOMParser
 end
 
 
-p DOMParser::Main.run('test.html')
+DOMParser::Main.run('test.html')
