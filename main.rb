@@ -2,7 +2,6 @@ require './nodes'
 require './regex'
 require './parser'
 require './domtree'
-require 'pry'
 
 module DOMParser
 
