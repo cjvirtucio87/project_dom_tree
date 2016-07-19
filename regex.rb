@@ -18,7 +18,7 @@ module DOMParser
 
     # # ATTRIBUTES = /<\w+(.*=.*?)>/
 
-    # ATTRIBUTES = /<(\w+)\s*(\w+)="([^""]+)"/
+    ATTRIBUTES = /<(\w+)\s*(\w+)="([^""]+)"/
 
   end
 

@@ -51,6 +51,11 @@ module DOMParser
           puts "#{node.type.strip}"
           puts "... Parent: #{node.parent.type.strip}"
           puts "... Depth: #{node.depth}"
+          puts "... Attributes:"
+          node.attributes.each do |attrib|
+            puts "... ... #{attrib.type}"
+          end
+          puts
         end
 
     end
